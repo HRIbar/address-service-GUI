@@ -1,0 +1,33 @@
+<!-- address.component.html -->
+<div class="user-info">
+  <h3>User: {{ user.firstName }} {{ user.lastName }}</h3>
+</div>
+
+<div class="address-table">
+  <h3>My Addresses</h3>
+  <table>
+    <thead>
+    <tr>
+      <th>Street</th>
+      <th>Street Number</th>
+      <th>Postal Code</th>
+      <th>Post Office</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let address of addresses">
+      <td>{{ address.street }}</td>
+      <td>{{ address.streetNumber }}</td>
+      <td>{{ address.postalCode }}</td>
+      <td>{{ address.postOffice }}</td>
+      <td>
+        <button (click)="editAddress(address)">Edit</button>
+        <button (click)="deleteAddress(address.id)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<button (click)="addNewAddress()">Add New</button>

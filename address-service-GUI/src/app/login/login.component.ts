@@ -1,7 +1,9 @@
 // login.component.ts
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {Router} from '@angular/router';
 import * as tslib from 'tslib';
+import {error} from "@angular/compiler-cli/src/transformers/util";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,14 +15,15 @@ export class LoginComponent {
     lastName: ''
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   onLogin(): void {
-    const apiUrl = '/addresses-service/user'; // Replace with your actual environment variable or base URL
+    const apiUrl = 'http://localhost:8080/addresses-service/user';
     this.http.post(apiUrl, this.user).subscribe(
-      response => {
-        console.log('User logged in', response);
-        // Handle successful login here
+      (response: Object) => {
+        const userResponse = response as { id: null; firstName: string; lastName: string };
+        console.log('User logged in', userResponse);
+        this.router.navigate(['/address', userResponse.id]);
       },
       error => {
         console.error('Login failed', error);
